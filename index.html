@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CapCut Pro - Secure Download</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #00f2ea;
+        --secondary: #ff0050;
+        --warning: #ffc107;
+        --bg-dark: #090910;
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --text-main: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-dark);
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(0, 242, 234, 0.12) 0%, transparent 40%),
+            radial-gradient(circle at 90% 80%, rgba(255, 0, 80, 0.12) 0%, transparent 40%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        min-height: 100vh;
+        color: var(--text-main);
+        padding: 20px;
+    }
+
+    /* টপ হেডার সেকশন (টাইম, প্রোফাইল ও মেনু) */
+    .top-header {
+        width: 100%;
+        max-width: 380px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 18px;
+        border-radius: 18px;
+        backdrop-filter: blur(15px);
+    }
+
+    .time-display {
+        font-size: 12px;
+        color: var(--primary);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .profile-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .profile-img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--primary);
+    }
+
+    .profile-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.2;
+    }
+
+    .profile-title {
+        font-size: 10px;
+        color: #a0a0a0;
+    }
+
+    /* মেনু বাটন */
+    .menu-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .menu-btn:hover {
+        background: var(--primary);
+        color: #000;
+    }
+
+    /* সাইডবার / ড্রপডাউন মেনু মডাল */
+    .menu-modal {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 320px;
+        height: 100%;
+        background: #131322;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+        z-index: 1000;
+        transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
+        border-left: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .menu-modal.active {
+        right: 0;
+    }
+
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 15px;
+    }
+
+    .menu-header h3 {
+        font-size: 18px;
+        color: var(--primary);
+    }
+
+    .close-menu {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .menu-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .menu-links a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255,255,255,0.04);
+        padding: 12px 15px;
+        border-radius: 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .menu-links a:hover {
+        background: rgba(0, 242, 234, 0.1);
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateX(5px);
+    }
+
+    .about-section {
+        background: rgba(255,255,255,0.02);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .about-section h4 {
+        font-size: 14px;
+        color: var(--warning);
+        margin-bottom: 8px;
+    }
+
+    .about-section p {
+        font-size: 12px;
+        color: #b0b0b0;
+        line-height: 1.5;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(5px);
+        z-index: 999;
+        display: none;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+
+    /* নির্দেশনা বক্স ও ডাউনলোড কার্ড */
+    .instruction-box {
+        background: rgba(255, 193, 7, 0.08);
+        border-left: 4px solid var(--warning);
+        border-radius: 14px;
+        padding: 15px 18px;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 380px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .instruction-box h3 {
+        font-family: 'Hind Siliguri', sans-serif;
+        color: var(--warning);
+        font-size: 16px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .instruction-box ul { list-style: none; }
+
+    .instruction-box li {
+        font-family: 'Hind Siliguri', sans-serif;
+        font-size: 13px;
+        color: #dcdcdc;
+        margin-bottom: 4px;
+        line-height: 1.5;
+    }
+    
+    .instruction-box li i { color: var(--warning); margin-right: 5px; font-size: 9px; }
+
+    .download-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 30px 25px;
+        border-radius: 24px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        text-align: center;
+        max-width: 380px;
+        width: 100%;
+        position: relative;
+    }
+
+    .badge {
+        background: rgba(0, 242, 234, 0.08);
+        color: var(--primary);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 15px;
+        border: 1px solid rgba(0, 242, 234, 0.2);
+    }
+
+    .app-icon-wrapper {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 15px;
+    }
+    
+    .app-icon {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        object-fit: cover;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    
+    .verified-icon {
+        position: absolute;
+        bottom: -3px;
+        right: -3px;
+        background: #fff;
+        color: #1DA1F2;
+        border-radius: 50%;
+        padding: 3px;
+        font-size: 13px;
+        border: 2px solid var(--bg-dark);
+    }
+
+    h2 { font-size: 20px; margin-bottom: 5px; font-weight: 700; }
+
+    .meta-info {
+        color: #aaa;
+        font-size: 12px;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .meta-info span i { margin-right: 4px; color: var(--primary); }
+
+    .btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 14px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        margin-bottom: 12px;
+    }
+
+    #unlockBtn {
+        background: linear-gradient(135deg, #ff0050, #ff416c);
+        color: white;
+        box-shadow: 0 6px 18px rgba(255, 0, 80, 0.3);
+    }
+    
+    #unlockBtn:hover { transform: translateY(-2px); }
+
+    #downloadBtn {
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    #downloadBtn.active {
+        background: linear-gradient(135deg, #00f2ea, #00c6fb);
+        color: #000;
+        cursor: pointer;
+        pointer-events: auto;
+        box-shadow: 0 6px 18px rgba(0, 242, 234, 0.3);
+        animation: pulse 2s infinite;
+    }
+
+    .progress-container {
+        width: 100%;
+        background-color: rgba(255,255,255,0.08);
+        border-radius: 10px;
+        height: 5px;
+        margin-bottom: 10px;
+        display: none;
+        overflow: hidden;
+    }
+    .progress-bar {
+        height: 100%;
+        background: var(--primary);
+        width: 0%;
+        border-radius: 10px;
+        transition: width 0.1s linear;
+    }
+    
+    .status-text {
+        font-size: 11px;
+        color: var(--primary);
+        margin-bottom: 12px;
+        display: none;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(0, 242, 234, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(0, 242, 234, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 242, 234, 0); }
+    }
+</style>
+</head>
+<body>
+
+<!-- টপ হেডার (টাইম, প্রোফাইল ও মেনু বাটন) -->
+<div class="top-header">
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80" alt="Max Editor" class="profile-img">
+        <div>
+            <div class="profile-name">Max Editor</div>
+            <div class="profile-title">Pro Creator</div>
+        </div>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="time-display" id="liveTime">
+            <i class="far fa-clock"></i> 12:00 PM
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</div>
+
+<!-- সাইড মেনু / ড্রপডাউন -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="menu-modal" id="menuModal">
+    <div class="menu-header">
+        <h3><i class="fas fa-compass"></i> Navigation</h3>
+        <button class="close-menu" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <ul class="menu-links">
+        <li><a href="https://t.me/your_telegram_username" target="_blank"><i class="fab fa-telegram fa-lg" style="color: #0088cc;"></i> Telegram Channel</a></li>
+        <li><a href="https://wa.me/your_whatsapp_number" target="_blank"><i class="fab fa-whatsapp fa-lg" style="color: #25D366;"></i> WhatsApp Support</a></li>
+        <li><a href="mailto:your-email@gmail.com"><i class="fas fa-envelope fa-lg" style="color: #ea4335;"></i> E-Mail Contact</a></li>
+    </ul>
+
+    <div class="about-section">
+        <h4><i class="fas fa-info-circle"></i> About Max Editor</h4>
+        <p>স্বাগতম আমাদের সিকিউর ডাউনলোড পোর্টালে! আমরা আপনাদের জন্য নিয়ে আসি শতভাগ ভেরিফাইড এবং প্রিমিয়াম আনলকড এডিটিং অ্যাপস ও টুলস, যা আপনার ক্রিয়েটিভিটি বাড়িয়ে তুলবে বহুগুণ। যেকোনো সহায়তায় আমাদের সাথে যুক্ত থাকুন।</p>
+    </div>
+</div>
+
+<!-- নির্দেশনা বক্স -->
+<div class="instruction-box">
+    <h3><i class="fas fa-exclamation-triangle"></i> ডাউনলোড করার নিয়ম</h3>
+    <ul>
+        <li><i class="fas fa-circle"></i> ১. প্রথমে <b>Watch Ad to Unlock</b> বাটনে ক্লিক করুন।</li>
+        <li><i class="fas fa-circle"></i> ২. পেজটি লোড হওয়া পর্যন্ত <b>৫ সেকেন্ড</b> অপেক্ষা করুন।</li>
+        <li><i class="fas fa-circle"></i> ৩. এরপর <b>Download</b> বাটনটি আনলক হবে।</li>
+    </ul>
+</div>
+
+<!-- মেইন ডাউনলোড কার্ড -->
+<div class="download-card">
+    <div class="badge">MOD PREMIUM UNLOCKED</div>
+    
+    <div class="app-icon-wrapper">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Capcut_logo.jpg" alt="CapCut" class="app-icon">
+        <i class="fas fa-check-circle verified-icon"></i>
+    </div>
+    
+    <h2>CapCut Pro</h2>
+    <div class="meta-info">
+        <span><i class="fas fa-star"></i> 4.9</span>
+        <span><i class="fas fa-download"></i> 100M+</span>
+        <span><i class="fas fa-hdd"></i> 180MB</span>
+    </div>
+
+    <!-- বাটন ১ -->
+    <button id="unlockBtn" class="btn" onclick="startUnlockProcess()">
+        <i class="fas fa-play"></i> Watch Ad to Unlock 🔓
+    </button>
+
+    <!-- প্রসেস বার -->
+    <div id="progressContainer" class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+    <p id="statusMsg" class="status-text">Verifying advertisement...</p>
+
+    <!-- বাটন ২ -->
+    <a id="downloadBtn" class="btn" href="#">
+        <i class="fas fa-lock"></i> Download Free
+    </a>
+</div>
+
+<script>
+    // ==========================================
+    // লাইভ টাইম আপডেট স্ক্রিপ্ট
+    // ==========================================
+    function updateClock() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        document.getElementById('liveTime').innerHTML = `<i class="far fa-clock"></i> ${hours}:${minutes} ${ampm}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ==========================================
+    // মেনু টগল ফাংশন
+    // ==========================================
+    function toggleMenu() {
+        const menuModal = document.getElementById('menuModal');
+        const overlay = document.getElementById('overlay');
+        menuModal.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    // ==========================================
+    // ডাউনলোড আনলক প্রসেস সেটআপ
+    // ==========================================
+    const adsterraLink = "https://www.effectivegatecpm.com/vzci94tp13?key=fe8e1767ccc1907f8098f0dc7f826926"; 
+    const fileDownloadLink = "https://play.google.com/store/apps/details?id=com.lemon.capcut"; 
+    const waitTime = 5000; 
+
+    function startUnlockProcess() {
+        const unlockBtn = document.getElementById('unlockBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const statusMsg = document.getElementById('statusMsg');
+
+        let adWindow = window.open(adsterraLink, '_blank');
+        if (adWindow) { window.focus(); }
+
+        unlockBtn.style.opacity = "0.7";
+        unlockBtn.style.pointerEvents = "none";
+        unlockBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading Ad...';
+        
+        progressContainer.style.display = "block";
+        statusMsg.style.display = "block";
+
+        let width = 0;
+        const intervalTime = waitTime / 100;
+        
+        const timer = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(timer);
+                unlockCompleted();
+            } else {
+                width++;
+                progressBar.style.width = width + '%';
+            }
+        }, intervalTime);
+    }
+
+    function unlockCompleted() {
+        const unlockBtn = document.getElementById('unlockBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const statusMsg = document.getElementById('statusMsg');
+
+        unlockBtn.style.display = "none";
+        progressContainer.style.display = "none";
+        statusMsg.style.display = "none";
+
+        downloadBtn.classList.add('active');
+        downloadBtn.href = fileDownloadLink;
+        downloadBtn.target = "_blank";
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Pro Apk';
+    }
+</script>
+
+</body>
+</html>

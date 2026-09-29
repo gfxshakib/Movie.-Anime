@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About & Contact - Max Editor</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --primary: #00f2ea;
+        --secondary: #ff0050;
+        --warning: #ffc107;
+        --bg-dark: #090910;
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --text-main: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-dark);
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(0, 242, 234, 0.12) 0%, transparent 40%),
+            radial-gradient(circle at 90% 80%, rgba(255, 0, 80, 0.12) 0%, transparent 40%);
+        color: var(--text-main);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .header {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        background: var(--card-bg);
+        padding: 15px 20px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(15px);
+    }
+    .back-btn {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+    }
+    .back-btn:hover { opacity: 0.8; }
+    .header h3 { font-size: 16px; color: #fff; }
+
+    .content-container {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .card-box {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 20px;
+        border-radius: 18px;
+        backdrop-filter: blur(15px);
+    }
+    .card-box h3 {
+        font-size: 16px;
+        color: var(--primary);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .card-box p {
+        font-size: 13px;
+        color: #b0b0b0;
+        line-height: 1.6;
+        font-family: 'Hind Siliguri', sans-serif;
+    }
+    .contact-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 10px;
+    }
+    .contact-links a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255,255,255,0.04);
+        padding: 12px 15px;
+        border-radius: 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+    .contact-links a:hover {
+        background: rgba(0, 242, 234, 0.1);
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateX(5px);
+    }
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="Home page.html" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
+        <h3><i class="fas fa-id-card" style="color: var(--primary);"></i> About & Contact</h3>
+    </div>
+
+    <div class="content-container">
+        <!-- অ্যাবাউট সেকশন -->
+        <div class="card-box">
+            <h3><i class="fas fa-info-circle"></i> About Max Editor</h3>
+            <p>স্বাগতম আমাদের সিকিউর ডাউনলোড পোর্টালে! আমরা আপনাদের জন্য নিয়ে আসি শতভাগ ভেরিফাইড এবং প্রিমিয়াম আনলকড এডিটিং অ্যাপস ও টুলস, যা আপনার ক্রিয়েটিভিটি বাড়িয়ে তুলবে বহুগুণ। যেকোনো সহায়তায় আমাদের সাথে যুক্ত থাকুন।</p>
+        </div>
+
+        <!-- কন্টাক্ট সেকশন -->
+        <div class="card-box">
+            <h3><i class="fas fa-headset"></i> Get in Touch</h3>
+            <ul class="contact-links">
+                <li><a href="https://t.me/your_telegram_username" target="_blank"><i class="fab fa-telegram fa-lg" style="color: #0088cc;"></i> Telegram Channel</a></li>
+                <li><a href="https://wa.me/your_whatsapp_number" target="_blank"><i class="fab fa-whatsapp fa-lg" style="color: #25D366;"></i> WhatsApp Support</a></li>
+                <li><a href="mailto:your-email@gmail.com"><i class="fas fa-envelope fa-lg" style="color: #ea4335;"></i> E-Mail Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
